@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rocky Mountain Tails</title>
+
+  <!-- Your site CSS lives in /public/styles.css -->
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="main-header">
+    <div class="logo">
+      <img src="/images/logo.png" alt="logo at top of page" />
+      Rocky Mountain Tails
+    </div>
+
+    <div class="hamburger" id="hamburger">☰</div>
+
+    <nav class="nav-links" id="navLinks">
+      <!-- Logged OUT: show login/register (marketing flow) -->
+      <% if (!currentUser) { %>
+        <a href="/login" class="login-btn">Walker Login</a>
+        <a href="/register" class="login-btn">Register</a>
+      <% } %>
+
+      <!-- Logged IN: show member links + logout -->
+      <% if (currentUser) { %>
+        <a href="/notes" class="login-btn">My Notes</a>
+
+        <form action="/logout" method="POST" style="display:inline;margin:0;">
+          <button type="submit" class="login-btn" style="cursor:pointer;">Logout</button>
+        </form>
+      <% } %>
+
+      <!-- Marketing anchors -->
+      <a href="#services">Services</a>
+      <a href="#booking">Book</a>
+      <a href="#apply">Apply</a>
+      <a href="#dog-profiles">Clients</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <h1>Happy Dogs. Happy Adventures.</h1>
+    <p>Dog walking and sitting services for your mountain-loving best friend</p>
+    <a href="#booking" class="hero-btn">Book Now</a>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section id="services" class="services-section">
+    <h2>Our Services</h2>
+    <div class="services-cards">
+
+      <div class="service-card">
+        <img src="/images/dogwalking.jpeg" alt="Dog Walking" />
+        <h3>Dog Walking</h3>
+        <p>Daily walks around town or scenic trails. 30-minute and 60-minute options available!</p>
+        <a href="#booking" class="service-btn">Book a Walk</a>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/housesitting.jpeg" alt="Dog Sitting and House Sitting" />
+        <h3>Dog Sitting & House Sitting</h3>
+        <p>Care and cuddles wherever your pup feels most at home — yours or ours! Flexible scheduling available.</p>
+        <a href="#booking" class="service-btn">Book Sitting</a>
+      </div>
+
+      <div class="service-card">
+        <img src="/images/trailadventures.jpeg" alt="Trail Adventures" />
+        <h3>Trail Adventures</h3>
+        <p>For energetic pups: Day-long guided hikes on safe, beautiful Rocky Mountain trails.</p>
+        <a href="#booking" class="service-btn">Book an Adventure</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DOG PROFILES -->
+  <section id="dog-profiles" class="dog-profiles-section">
+    <h2>Meet Our Furry Clients</h2>
+    <div id="dogCards" class="dog-cards-container"></div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="team-section">
+    <h2>Meet Our Dog Besties</h2>
+    <div id="teamCards" class="team-cards-container"></div>
+  </section>
+
+  <!-- BOOKING SECTION -->
+  <section id="booking" class="booking-section">
+    <h2>Book a Service</h2>
+
+    <form id="booking-form">
+      <label for="owner-name">Your Name:</label>
+      <input type="text" id="owner-name" required />
+
+      <label for="dog-name">Dog's Name:</label>
+      <input type="text" id="dog-name" required />
+
+      <label for="service">Service:</label>
+      <select id="service" required>
+        <option value="">--Please choose a service--</option>
+        <option value="Dog Walking">Dog Walking</option>
+        <option value="Dog Sitting & House Sitting">Dog Sitting & House Sitting</option>
+        <option value="Trail Adventure">Trail Adventure</option>
+      </select>
+
+      <label for="date">Preferred Date:</label>
+      <input type="date" id="date" required />
+
+      <label for="notes">Special Notes:</label>
+      <textarea id="notes" rows="4" placeholder="Anything we should know?"></textarea>
+
+      <div class="bestie-preference-group">
+        <label>Bestie Preference:</label>
+        <div>
+          <input type="radio" id="chooseBestie" name="bestieOption" value="choose" checked />
+          <label for="chooseBestie">Request a specific bestie</label>
+        </div>
+
+        <div>
+          <input type="radio" id="viewAvailable" name="bestieOption" value="available" />
+          <label for="viewAvailable">Show who is available</label>
+        </div>
+      </div>
+
+      <div id="bestieSelectContainer" style="display: none;">
+        <label for="bestie">Choose a Bestie:</label>
+        <select id="bestie">
+          <option value="">--Choose a bestie--</option>
+          <option value="Rachel">Rachel</option>
+          <option value="Jake">Jake</option>
+        </select>
+      </div>
+
+      <div id="availableBesties" class="success-message" style="display: none;"></div>
+      <div id="bestieCalendar" class="calendar" style="display: none;"></div>
+
+      <button type="submit" class="form-btn">Submit Booking</button>
+    </form>
+
+    <span id="spinner" class="loader" style="display: none;"></span>
+    <div id="booking-success" class="success-message"></div>
+  </section>
+
+  <!-- APPLY SECTION -->
+  <section id="apply" class="apply-section">
+    <h2>Join the 'Rocky Mountain Tails' team!</h2>
+
+    <form id="apply-form">
+      <label for="applicant-name">Your Name:</label>
+      <input type="text" id="applicant-name" required />
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" required />
+
+      <label for="about">Tell Us About Yourself:</label>
+      <textarea id="about" rows="4" required placeholder="Why do you love working with dogs?"></textarea>
+
+      <label for="photo">Upload Your Photo:</label>
+      <input type="file" id="photo" accept="image/*" />
+
+      <button type="submit" class="form-btn">Apply Now</button>
+    </form>
+
+    <span id="apply-spinner" class="loader" style="display: none;"></span>
+    <div id="apply-success" class="success-message"></div>
+  </section>
+
+
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <img src="/images/logo.png" alt="Rocky Mountain Tails Logo" />
+      <p>🐾 Proudly serving pups in the Rockies and beyond!</p>
+      <p>Contact us: <a href="mailto:info@rockymountaintails.com">info@rockymountaintails.com</a></p>
+      <div class="social-icons">
+        <a href="#"><img src="/images/facebook.png" alt="Facebook" /></a>
+        <a href="#"><img src="/images/instagram.png" alt="Instagram" /></a>
+      </div>
+    </div>
+  </footer>
+
+<script src="/main.js"></script>
+
+</body>
+
+</html>

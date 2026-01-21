@@ -1,0 +1,44 @@
+<!-- Edit Note Page (edit.ejs) -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Walk Report</title>
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+    <%- include('../partials/_header') %>
+
+        <div class="container">
+            <h1>Edit Walk Report 🐾</h1>
+
+            <form action="/notes/<%= note._id %>?_method=PUT" method="POST">
+                <label for="weather">Weather:</label>
+                <input type="text" id="weather" name="weather" value="<%= note.weather %>" required>
+
+                <label for="incidents">Incidents:</label>
+                <textarea id="incidents" name="incidents" rows="4"><%= note.incidents %></textarea>
+
+                <label>
+                    <input type="checkbox" name="poop" <%=note.poop ? "checked" : "" %>> Did they poop?
+                </label>
+
+                <label for="other">Other:</label>
+                <textarea id="other" name="other" rows="3"><%= note.other %></textarea>
+
+                <label for="walker">Walker:</label>
+                <input type="text" id="walker" name="walker" value="<%= note.walker %>" required>
+
+                <button type="submit">Save Changes</button>
+            </form>
+
+            <a href="/notes" class="back-link">← Back to Notes</a>
+        </div>
+
+        <%- include('../partials/_footer') %>
+</body>
+
+</html>

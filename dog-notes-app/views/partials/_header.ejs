@@ -1,0 +1,38 @@
+<header>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+    <div>
+      <h1 style="margin:0;">Rocky Mountain Tails</h1>
+
+      <% if (currentUser) { %>
+        <p style="margin:6px 0 0 0;">👋 Welcome, <strong><%= currentUser %></strong></p>
+      <% } %>
+    </div>
+
+    <nav style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <!-- PUBLIC NAV (only when logged OUT) -->
+      <% if (!currentUser) { %>
+        <a href="/">Home</a>
+        <a href="#services">Services</a>
+        <a href="#booking">Book</a>
+        <a href="#apply">Apply</a>
+        <a href="#contact">Contact</a>
+
+        <a href="/login" class="login-btn">Walker Login</a>
+        <a href="/register" class="login-btn">Register</a>
+      <% } %>
+
+      <!-- MEMBER NAV (only when logged IN) -->
+      <% if (currentUser) { %>
+         <a href="/">Home</a>
+        <a href="/notes">My Notes</a>
+        <a href="/notes/new">New Note</a>
+
+        <form action="/logout" method="POST" style="display:inline;margin:0;">
+          <button type="submit" class="btn-secondary" style="cursor:pointer;">Logout</button>
+        </form>
+      <% } %>
+    </nav>
+  </div>
+
+  <hr />
+</header>

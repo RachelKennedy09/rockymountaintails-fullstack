@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- title ideas here  -->
+    <!--  "Rocky Paws" OR "Wagging Trails" OR "Mountain Tails" OR "PeakPals" OR "Fetch and Hike"-->
+    <title>Rocky Mountain Tails</title>
+    <!-- style reference -->
+    <link rel="stylesheet" href="style.css">
+    <!-- decided to only use one stylesheet this time, I find it more convenient - but tell me if I am wrong -->
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <!-- INFORMATION: Here I want to use what I have learned in java script to make a mobile friendly
+    hamburger menu. i use a basic header with correct navigation titles. I used an emoji from google as
+    a puppy icon in header(and footer) -->
+    <header class="main-header">
+        <div class="logo">
+            <img src="images/logo.png" alt="logo at top of page">Rocky Mountain Tails
+        </div>
+        <!-- hamburger menu for media query styling.  -->
+        <div class="hamburger" id="hamburger">
+            ☰
+        </div>
+        <!-- navigation links at top of page -->
+        <nav class="nav-links" id="navLinks">
+            <!-- Rocky Mountain Tails login button -->
+            <!--
+              IMPORTANT:
+              - In dev: your Dog Notes App runs on http://localhost:3000
+              - In production: replace NOTES_APP_URL with your deployed notes app URL (Render/Railway/etc.)
+            -->
+            <a href="http://localhost:3000/login" class="login-btn">Walker Login</a>
+            <a href="http://localhost:3000/register" class="login-btn">Walker Registration</a>
+            <a href="http://localhost:3000/notes" class="login-btn">Walker Notes</a>
+
+            <a href="#services">Services</a>
+            <a href="#booking">Book</a>
+            <a href="#apply">Apply</a>
+            <a href="#dog-profiles">Clients</a>
+            <a href="#contact">Contact</a>
+            <!-- end of header/navigation's-->
+        </nav>
+    </header>
+
+    <!-- PROFILE PAGE/HERO SECTION -->
+    <!-- INFORMATION: a little blurb to introduce/intrigue clients to the site -->
+    <section class="hero">
+        <h1>Happy Dogs. Happy Adventures.</h1>
+        <p>Dog walking and sitting services for your mountain-loving best friend</p>
+        <!-- another main booking button to be easily directed -->
+        <a href="#booking" class="hero-btn">Book Now</a>
+        <!-- end of hero section -->
+    </section>
+
+
+
+
+    <!-- SERVICES SECTION -->
+    <!-- INFORMATION: Here I want to promote the Services we offer, 
+    dog walkers available to dog walk and profile section for them
+    dog sitting (your house to house sit or their house aka when 
+    ou have family visiting who are allergic to dogs)-->
+    <section id="services" class="services-section">
+        <h2>Our Services</h2>
+        <div class="services-cards">
+
+            <!-- Service 1: Dog Walking -->
+            <div class="service-card">
+                <img src="images/dogwalking.jpeg" alt="Dog Walking">
+                <h3>Dog Walking</h3>
+                <p>Daily walks around town or scenic trails. 30-minute and 60-minute options available!</p>
+                <a href="#booking" class="service-btn">Book a Walk</a>
+            </div>
+
+            <!-- Service 2: Dog Sitting / House Sitting -->
+            <div class="service-card">
+                <img src="images/housesitting.jpeg" alt="Dog Sitting and House Sitting">
+                <h3>Dog Sitting & House Sitting</h3>
+                <p>Care and cuddles wherever your pup feels most at home — yours or ours! Flexible scheduling available.
+                </p>
+                <a href="#booking" class="service-btn">Book Sitting</a>
+            </div>
+
+            <!-- Service 3: Trail Adventures -->
+            <div class="service-card">
+                <img src="images/trailadventures.jpeg" alt="Trail Adventures">
+                <h3>Trail Adventures</h3>
+                <p>For energetic pups: Day-long guided hikes on safe, beautiful Rocky Mountain trails.</p>
+                <a href="#booking" class="service-btn">Book an Adventure</a>
+            </div>
+        </div>
+        <!-- end of services section -->
+    </section>
+
+
+    <!-- DOG PROFILES SECTIONS -->
+    <!-- INFORMATION: Adding (Objects) to website. Using 'Furry clients' as object practice. -->
+    <section id="dog-profiles" class="dog-profiles-section">
+        <h2>Meet Our Furry Clients</h2>
+        <div id="dogCards" class="dog-cards-container"></div>
+        <!-- div id giving placement for java script/objects-->
+        <!-- end of dog profile sections -->
+    </section>
+
+
+    <!-- DOG BESTIES PROFILE SECTION -->
+    <!-- INFORMATION: Wanted to give a fake star rating and testimonials to make it more realistic -->
+    <section id="team" class="team-section">
+        <h2>Meet Our Dog Besties</h2>
+        <div id="teamCards" class="team-cards-container"></div>
+        <!-- end of bestie section -->
+
+
+
+        <!-- BOOKING SECTION -->
+        <!-- INFORMATION: here I am practicing forms/interactivity. This is where you put your requested
+    information and submit - I later added the "preference" options as I realized it would need
+    an option to pick who is available or who they'd like on that date -->
+        <section id="booking" class="booking-section">
+            <h2>Book a Service</h2>
+
+            <!-- beginning of form -->
+            <!-- form id is grouping the input elements, triggering my javascript handler (id) -->
+            <form id="booking-form">
+
+                <!-- label is like a name tag for the input field/and is a form of accessibility as 
+                it helps screen readers know what to type in the box.-->
+                <!-- 'required' to ensure it is filled out -->
+
+
+                <!-- YOUR NAME INPUT FIELD -->
+                <label for="owner-name">Your Name:</label>
+                <input type="text" id="owner-name" required>
+                <!-- YOUR DOGS NAME INPUT FIELD -->
+                <label for="dog-name">Dog's Name:</label>
+                <input type="text" id="dog-name" required>
+                <!-- THE SERVICE YOU ARE CHOOSING -->
+                <label for="service">Service:</label>
+
+                <!--I am adding a dropdown menu to select the services I want to offer -->
+                <select id="service" required>
+                    <!-- option (what user sees in dropdown) vs value (what JS will retrieve) -->
+                    <option value="">--Please choose a service--</option>
+                    <option value="Dog Walking">Dog Walking</option>
+                    <option value="Dog Sitting & House Sitting">Dog Sitting & House Sitting</option>
+                    <option value="Trail Adventure">Trail Adventure</option>
+                </select>
+
+                <!-- PREFERRED DATE  -->
+                <!-- iNFORMATION: This wil align with if they choose "Show who is available" in the bestie preference below -->
+                <label for="date">Preferred Date:</label>
+                <input type="date" id="date" required>
+
+                <!-- SPECIAL NOTES -->
+                <!-- INFORMATION: label showing "special notes" with a hidden text that disappears after each keyboard click/
+            "rows" controls the height of the text area is. The placeholder gives a hint, and disappears when the user types. -->
+                <label for="notes">Special Notes:</label>
+                <textarea id="notes" rows="4" placeholder="Anything we should know?"></textarea>
+
+
+                <!-- BESTIE PREFERENCE SECTION -->
+                <!-- INFORMATION:  -->
+                <div class="bestie-preference-group">
+                    <label>Bestie Preference:</label>
+                    <div>
+                        <input type="radio" id="chooseBestie" name="bestieOption" value="choose" checked>
+                        <label for="chooseBestie">Request a specific bestie</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="viewAvailable" name="bestieOption" value="available">
+                        <label for="viewAvailable">Show who is available</label>
+                    </div>
+                </div>
+
+
+                <!-- INFORMATION: hiding the drop down menu so it is only displayed when they want to request a specific bestie-->
+                <div id="bestieSelectContainer" style="display: none;">
+
+                    <label for="bestie">Choose a Bestie:</label>
+                    <select id="bestie">
+                        <option value="">--Choose a bestie--</option>
+                        <option value="Rachel">Rachel</option>
+                        <option value="Jake">Jake</option>
+                    </select>
+                </div>
+
+                <!-- where we show available besties -->
+                <div id="availableBesties" class="success-message" style="display: none;"></div>
+                <!-- shows a fake calendar of available bestie days -->
+                <div id="bestieCalendar" class="calendar" style="display: none;"></div>
+
+
+                <!-- button to submit, button type different then "click" -->
+                <button type="submit" class="form-btn">Submit Booking</button>
+
+                <!-- end of form -->
+            </form>
+            <!--spinner style - showing hidden (display:none) until the user clicks submit -->
+            <span id="spinner" class="loader" style="display: none;"></span>
+            <!-- end of form JS, CSS, HTML -->
+            <!-- booking success div id shows a success-message after submitted, more user friendly
+        than just an alert pop up -->
+            <div id="booking-success" class="success-message"></div>
+            <!-- end of section -->
+        </section>
+
+
+        <!-- APPLY SECTION -->
+
+        <!-- Here is where people will apply to be part of Rocky Mountain Tails and be a dog walker or
+ house/dog sitter etc. I want to create a profile page with photos, and testimonies
+ basically what I already have "besties" but more detailed and interactive -->
+        <section id="apply" class="apply-section">
+            <h2>Join the 'Rocky Mountain Tails' team!</h2>
+
+            <!-- beginning of form to apply -->
+            <form id="apply-form">
+                <!-- label for accessibility and name tag for input -->
+                <!-- required to ensure it is filled out-->
+                <label for="applicant-name">Your Name:</label>
+                <input type="text" id="applicant-name" required>
+
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" required>
+                <!-- rows to give height and no overflow -->
+                <label for="about">Tell Us About Yourself:</label>
+                <textarea id="about" rows="4" required placeholder="Why do you love working with dogs?"></textarea>
+
+                <label for="photo">Upload Your Photo:</label>
+                <input type="file" id="photo" accept="image/*">
+
+                <button type="submit" class="form-btn">Apply Now</button>
+                <!-- end of apply form -->
+            </form>
+
+            <!-- below I just copied my booking form and styled it appropriately for applications -->
+            <!--spinner style - showing hidden (display:none) until the user clicks submit -->
+            <span id="apply-spinner" class="loader" style="display: none;"></span>
+            <!-- end of form JS, CSS, HTML -->
+            <!-- booking success div id shows a success-message after submitted, more user friendly
+        than just an alert pop up -->
+            <div id="apply-success" class="success-message"></div>
+            <!-- end of section -->
+
+        </section>
+
+
+
+
+        <!-- FOOTER SECTION -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <img src="./images/logo.png" alt="Rocky Mountain Tails Logo">
+                <p>🐾 Proudly serving pups in the Rockies and beyond!</p>
+                <p>Contact us: <a href="info@rockymountaintails.com">info@rockymountaintails.com</a></p>
+                <div class="social-icons">
+                    <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+                </div>
+            </div>
+        </footer>
+
+
+
+
+
+
+        <script src="server.js"></script>
+</body>
+
+</html>

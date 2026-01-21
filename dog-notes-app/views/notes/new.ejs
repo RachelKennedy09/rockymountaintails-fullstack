@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Walk Reports</title>
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+    <%- include('../partials/_header') %>
+
+        <div class="container">
+            <h1>Walk Reports 📋</h1>
+            <a href="/notes/new" class="btn-create">+ New Report</a>
+
+            <form action="/notes" method="POST">
+                <label for="weather">Weather:</label>
+                <input type="text" id="weather" name="weather" required>
+
+                <label for="incidents">Incidents:</label>
+                <textarea id="incidents" name="incidents" rows="4"></textarea>
+
+                <label>
+                    <input type="checkbox" name="poop"> Did they poop?
+                </label>
+
+                <label for="other">Other:</label>
+                <textarea id="other" name="other" rows="3"></textarea>
+
+                <label for="walker">Walker:</label>
+                <input type="text" id="walker" name="walker" required>
+
+                <button type="submit">Submit Report</button>
+            </form>
+
+
+        </div>
+
+        <%- include('../partials/_footer') %>
+</body>
+
+</html>
