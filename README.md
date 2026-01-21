@@ -1,112 +1,132 @@
+# Rocky Mountain Tails
 
-# 🐾 Rocky Mountain Tails: Dog Notes App
+A full-stack dog walking website with a protected Walk Reports/Notes area for logged-in users.
 
-Welcome to the **Dog Notes App**, a secure and user-friendly note-taking system built for dog walkers at **Rocky Mountain Tails**. Walkers can log in to write and review personalized notes after each walk. The app features full CRUD functionality, authentication, and database integration.
+- Public marketing site (browse services, learn about the business)
+- Authentication (register, login, logout)
+- Protected notes area (create, view, edit, delete walk reports)
+- MongoDB persistence (Mongoose)
+- Sessions stored in MongoDB (connect-mongo)
 
----
+## Features
 
-## 📂 Project Structure
+- Public marketing pages for services and business info
+- User registration, login, and logout
+- Auth-protected walk reports/notes CRUD
+- Session-based auth stored in MongoDB
+- Server-rendered views with EJS
 
-- **Frontend**: HTML, CSS (GitHub Pages)
-- **Backend**: Node.js, Express, MongoDB (local or deployable to Render)
-- **Authentication**: Session-based login
-- **Database**: MongoDB with Mongoose models
-- **Views**: EJS templates
-- **Routing**: Express routes for login, notes, and logout
-- **Project Folder**: `dog-notes-app` inside main project repo
+## Tech Stack
 
----
+- Node.js + Express
+- MongoDB Atlas + Mongoose
+- EJS (server-rendered views)
+- express-session + connect-mongo
+- HTML/CSS/JS (public marketing UI)
 
-## 🚀 How to Run the App Locally
+## Live Demo
 
-### 🧰 Prerequisites
+- Live site: https://YOUR-RENDER-URL.onrender.com
 
-- Node.js & npm installed
-- MongoDB (Atlas or local MongoDB)
-- Git
+## Local Setup
 
-### 📦 Installation
+1) Clone the repo
 
 ```bash
-git clone https://github.com/RachelKennedy09/RockyMountainTails.git
-cd RockyMountainTails/dog-notes-app
+git clone https://github.com/RachelKennedy09/rockymountaintails-fullstack.git
+cd RockyMountainTails-main
+```
+
+2) Install dependencies
+
+```bash
 npm install
 ```
 
-### 🔑 Setup Environment Variables
+3) Create a `.env` file in the project root
 
-Create a `.env` file in `dog-notes-app/` with:
+Create a file named `.env` beside `server.js`:
 
+```env
+MONGO_URI=your_mongodb_atlas_connection_string
+SESSION_SECRET=some_long_random_secret
+NODE_ENV=development
 ```
-MONGODB_URI=your-mongodb-connection-uri
-SESSION_SECRET=your-secret-key
-```
 
-### 🖥 Start the Server
+Notes:
+- `MONGO_URI` comes from MongoDB Atlas: Connect -> Drivers
+- `SESSION_SECRET` can be any long random string (keep it private)
+
+
+4) Start the server
 
 ```bash
-npm run dev
+npm start
 ```
 
-Visit: homepage → WalkerLogin or WalkerRegister
-👉 https://rachelkennedy09.github.io/RockyMountainTails/
+5) Open the app
 
-To log in: visit [http://localhost:3000/login](http://localhost:3000/login)
+- Marketing site: http://localhost:3000
+- Login: http://localhost:3000/login
+- Register: http://localhost:3000/register
+- Notes (requires login): http://localhost:3000/notes
 
----
+## Deployment (Render)
 
-## 🧪 API Overview
+1) Push to GitHub
 
-| Method | Endpoint         | Description               |
-|--------|------------------|---------------------------|
-| GET    | `/notes`         | View all notes for user   |
-| POST   | `/notes`         | Create new note           |
-| GET    | `/notes/:id/edit`| Edit form for a note      |
-| PUT    | `/notes/:id`     | Update a note             |
-| DELETE | `/notes/:id`     | Delete a note             |
-| GET    | `/login`         | Show login form           |
-| POST   | `/login`         | Authenticate user         |
-| GET    | `/logout`        | End session + redirect    |
+```bash
+git status
+git push origin main
+```
 
-> All notes are **user-specific**. A user only sees their own notes.
+2) Create a Render Web Service
 
----
+- Render Dashboard -> New -> Web Service
+- Connect your GitHub repo
+- Build Command: `npm install`
+- Start Command: `npm start`
 
-## 🔐 Authentication
+Make sure your Express server listens on the Render port:
 
-- Users must log in to access their notes.
-- Sessions are securely stored.
-- Logout clears the session and redirects to the homepage.
+```js
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server on ${PORT}`));
+```
 
----
+3) Add environment variables in Render
 
-## 🧠 Challenges & What I Learned
+- `MONGO_URI` = your MongoDB Atlas connection string
+- `SESSION_SECRET` = long random secret
+- `NODE_ENV` = `production`
 
-This project was an incredible learning experience. Here are some of the **wins** and **challenges** I encountered:
+4) MongoDB Atlas Network Access
 
-### ✅ Wins:
-- Built a full-stack app with **backend + frontend integration**
-- Created RESTful routes and used MongoDB effectively
-- Added **authentication** using session-based login
-- Deployed my homepage with **GitHub Pages**
-- Used GitHub version control and learned how to organize my project properly
+Atlas must allow connections from Render.
 
-### 😅 Challenges:
-- Had to reorganize my entire project mid-way to clean up file paths and folders
-- Originally forgot to redirect logout properly to the homepage (fixed it by switching from `req.logout()` to `req.session.destroy()`)
-- Learned how to separate my backend app from the GitHub Pages frontend and connect them cleanly
-- Debugged image paths and GitHub Pages issues due to incorrect nesting
-- Accidentally initialized Git inside a subfolder and had to reset `.git` and remote origin
+- Atlas -> Security -> Network Access -> IP Access List
+- For quick testing, allow all: `0.0.0.0/0` (not recommended long-term)
 
-### 💡 Key Takeaways:
-- **Organization is everything** — it's easier to build and debug when the project is clean
-- Deploying static sites vs server-side apps requires different strategies (GitHub Pages vs Render)
-- I'm now confident with RESTful routes, Express setup, and Git workflow
+## Requirements
+- Node.js 18+ recommended
+- MongoDB Atlas cluster (free tier works)
 
----
+## Troubleshooting
 
-## 📎 Submission Summary
+- “MongoNetworkError / IP not allowed” → update Atlas Network Access
 
-- ✅ GitHub Repo: [https://github.com/RachelKennedy09/RockyMountainTails](https://github.com/RachelKennedy09/RockyMountainTails)
-- ✅ Homepage: [Live GitHub Pages site](https://rachelkennedy09.github.io/RockyMountainTails/)
-- ✅ Note-Taking App: `dog-notes-app` folder with backend logic
+- “MONGO_URI missing” → check .env location and spelling
+
+- “Cannot find module” → run npm install
+## How Authentication Works
+
+- Sessions are stored in MongoDB via `connect-mongo`
+- Logged-in status is tracked via `req.session.userId`
+- Notes routes are protected by auth middleware
+
+## Future Improvements
+
+- Forgot password flow
+- Per-user notes permissions (walkers only see their own)
+- Cleaner nav UX (logged-in vs logged-out)
+- Admin role features
