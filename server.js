@@ -16,6 +16,9 @@ import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
+
 // View engine
 app.set("view engine", "ejs");
 
@@ -65,8 +68,9 @@ async function start() {
           collectionName: "sessions",
         }),
         cookie: {
-          maxAge: 1000 * 60 * 60 * 24, // 1 day
-          // secure: true, // enable in production with HTTPS
+         maxAge: 1000 * 60 * 60 * 24,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax",
         },
       })
     );
